@@ -8,7 +8,7 @@ import Drawer from '@/components/Drawer'
 import type { Perfil } from '@/lib/supabase'
 
 const SIDEBAR_W = '224px'
-const PRIMARY   = '#5C0F0F'
+const PRIMARY   = '#073763'
 
 interface PerfilForm {
   nome: string
@@ -155,13 +155,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center" style={{ background: '#F5EFEF' }}>
+    <div className="min-h-screen flex items-center justify-center" style={{ background: '#EEF2F8' }}>
       <p className="text-sm text-gray-400">Carregando…</p>
     </div>
   )
 
   return (
-    <div className="min-h-screen" style={{ background: '#F5EFEF' }}>
+    <div className="min-h-screen" style={{ background: '#EEF2F8' }}>
       {/* Header mobile */}
       <div className="lg:hidden print:hidden fixed top-0 left-0 right-0 z-20 h-14 flex items-center px-4 gap-3"
         style={{ background: PRIMARY }}>
@@ -174,7 +174,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <span className="block w-5 h-0.5 bg-white/80 rounded" />
           <span className="block w-5 h-0.5 bg-white/80 rounded" />
         </button>
-        <span className="text-white font-bold text-sm tracking-wide">CooperLiga</span>
+        <span className="text-white font-bold text-sm tracking-wide">COAF 4.0</span>
       </div>
 
       <div className="print:hidden">
@@ -209,19 +209,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Nome completo</label>
               <input type="text" value={form.nome} onChange={set('nome')} required autoFocus
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#5C0F0F]" />
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#073763]" />
             </div>
 
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">WhatsApp</label>
               <input type="tel" value={form.whatsapp} onChange={set('whatsapp')} placeholder="(11) 99999-9999"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#5C0F0F]" />
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#073763]" />
             </div>
 
             <div>
               <label className="block text-xs font-medium text-gray-600 mb-1">Cargo / Função</label>
               <input type="text" value={form.cargo} onChange={set('cargo')} placeholder="ex: Coordenador de Logística"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#5C0F0F]" />
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#073763]" />
             </div>
 
             <div className="border-t border-gray-100 pt-3">
@@ -231,31 +231,31 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1">CPF</label>
                     <input type="text" value={form.cpf} onChange={set('cpf')} placeholder="000.000.000-00"
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#5C0F0F]" />
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#073763]" />
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1">RG</label>
                     <input type="text" value={form.rg} onChange={set('rg')}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#5C0F0F]" />
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#073763]" />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1">Data de nascimento</label>
                   <input type="date" value={form.data_nascimento} onChange={set('data_nascimento')}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#5C0F0F]" />
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#073763]" />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1">Município</label>
                     <input type="text" value={form.municipio} onChange={set('municipio')}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#5C0F0F]" />
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#073763]" />
                   </div>
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1">CEP</label>
                     <input type="text" value={form.cep} onChange={set('cep')} onBlur={handleCEPBlur} placeholder="00000-000"
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#5C0F0F]" />
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#073763]" />
                     {buscandoCEP && <p className="text-xs text-gray-400 mt-0.5">Buscando CEP…</p>}
                   </div>
                 </div>
@@ -263,7 +263,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1">Endereço</label>
                   <input type="text" value={form.endereco} onChange={set('endereco')}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#5C0F0F]" />
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#073763]" />
                 </div>
               </div>
             </div>

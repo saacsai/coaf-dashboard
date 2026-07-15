@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { getSupabase } from '@/lib/supabase'
 
-const PRIMARY = '#5C0F0F'
-const ACCENT  = '#D4A0A0'
+const PRIMARY = '#073763'
+const ACCENT  = '#a4c2f4'
 
 export default function LoginPage() {
   return (
@@ -64,7 +64,7 @@ function LoginInner() {
   }
 
   if (mensagem) return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: '#F5EFEF' }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: '#EEF2F8' }}>
       <div className="rounded-xl shadow-xl w-full max-w-sm overflow-hidden" style={{ background: PRIMARY }}>
         <div className="px-6 pt-8 pb-6 text-center space-y-3">
           <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto" style={{ background: 'rgba(255,255,255,0.15)' }}>
@@ -86,20 +86,19 @@ function LoginInner() {
   )
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: '#F5EFEF' }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: '#EEF2F8' }}>
       <div className="rounded-xl shadow-xl w-full max-w-sm overflow-hidden" style={{ background: PRIMARY }}>
 
         {/* Logo */}
-        <div className="px-6 pt-8 pb-5 flex flex-col items-center gap-2">
+        <div className="px-6 pt-8 pb-5 flex flex-col items-center">
           <Image
-            src="/logo_fonte.jpg"
-            alt="CooperLiga"
+            src="/logo_coaf.png"
+            alt="COAF 4.0"
             width={220}
-            height={40}
+            height={64}
             className="object-contain"
             priority
           />
-          <p className="text-xs tracking-wide" style={{ color: ACCENT }}>Gestão Logística</p>
         </div>
 
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.12)' }} />

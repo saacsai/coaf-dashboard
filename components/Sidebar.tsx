@@ -7,8 +7,8 @@ import { getSupabase } from '@/lib/supabase'
 import AvatarMenu from './AvatarMenu'
 import type { Perfil } from '@/lib/supabase'
 
-const PRIMARY   = '#5C0F0F'
-const ACCENT    = '#D4A0A0'
+const PRIMARY   = '#073763'
+const ACCENT    = '#a4c2f4'
 const SIDEBAR_W = '224px'
 
 function Icon({ d, d2, d3, circle }: { d: string; d2?: string; d3?: string; circle?: { cx: number; cy: number; r: number } }) {
@@ -122,10 +122,9 @@ export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAbe
       >
       {/* Logo */}
       <div className="px-4 pt-5 pb-4">
-        <div className="rounded-lg overflow-hidden flex items-center justify-center" style={{ background: PRIMARY, height: 54 }}>
-          <Image src="/cooperliga_logo.jpg" alt="CooperLiga" width={180} height={54} className="object-contain" priority />
+        <div className="flex items-center justify-start" style={{ height: 54 }}>
+          <Image src="/logo_coaf.png" alt="COAF 4.0" width={176} height={54} className="object-contain object-left" priority />
         </div>
-        <p className="text-center mt-2 text-xs" style={{ color: ACCENT }}>Gestão Logística</p>
       </div>
 
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
@@ -137,7 +136,7 @@ export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAbe
           if (itens.length === 0) return null
           return (
             <div key={section.label} className={si > 0 ? 'mt-3' : ''}>
-              <p className="px-3 mb-1 text-[10px] font-semibold tracking-widest" style={{ color: 'rgba(212,160,160,0.45)' }}>
+              <p className="px-3 mb-1 text-[10px] font-semibold tracking-widest" style={{ color: 'rgba(164,194,244,0.5)' }}>
                 {section.label}
               </p>
               <div className="space-y-0.5">
@@ -171,12 +170,12 @@ export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAbe
       <div className="px-3 py-2">
         <button
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors"
-          style={{ background: 'rgba(212,160,160,0.2)', color: ACCENT }}
+          style={{ background: 'rgba(164,194,244,0.15)', color: ACCENT }}
           disabled title="Em breve"
         >
           <span className="flex-shrink-0">{ICONS.bia}</span>
           <span className="flex-1 text-left text-[13px]">BIA</span>
-          <span className="text-[10px] rounded px-1.5 py-0.5" style={{ background: 'rgba(212,160,160,0.3)', color: ACCENT }}>
+          <span className="text-[10px] rounded px-1.5 py-0.5" style={{ background: 'rgba(164,194,244,0.2)', color: ACCENT }}>
             em breve
           </span>
         </button>

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#2A5F6B',
+  themeColor: '#073763',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
