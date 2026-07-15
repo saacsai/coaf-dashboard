@@ -124,8 +124,8 @@ export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAbe
           ${mobileAberto ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
       {/* Logo */}
-      <div className="pt-11 pb-10 flex justify-center">
-        <Image src="/logo_coaf.png" alt="COAF 4.0" width={160} height={49} className="object-contain" priority />
+      <div style={{ paddingTop: 44, paddingBottom: 40, paddingLeft: 32, paddingRight: 32 }}>
+        <Image src="/logo_coaf.png" alt="COAF 4.0" width={160} height={49} className="object-contain w-full" priority />
       </div>
 
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
