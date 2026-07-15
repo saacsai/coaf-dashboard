@@ -24,18 +24,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       setEmail(session.user.email || '')
 
-      const { data: usuario } = await supabase
-        .from('usuarios')
-        .select('nome, perfil')
-        .eq('id', session.user.id)
-        .single()
+      const res = await fetch('/api/me', {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      })
 
-      if (!usuario) {
+      if (!res.ok) {
         await supabase.auth.signOut()
         window.location.href = '/login?erro=sem-acesso'
         return
       }
 
+      const usuario = await res.json()
       setNome(usuario.nome)
       setPerfil(usuario.perfil as Perfil)
       setLoading(false)
