@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [loading,      setLoading]     = useState(true)
   const [nome,         setNome]        = useState('')
   const [email,        setEmail]       = useState('')
-  const [perfil,       setPerfil]      = useState<Perfil>('operador')
+  const [perfil,       setPerfil]      = useState<Perfil>('operador_emissao_caf')
   const [drawerPerfil, setDrawerPerfil] = useState(false)
   const [menuMobile,   setMenuMobile]  = useState(false)
 
