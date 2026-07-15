@@ -49,36 +49,39 @@ interface NavSection {
   items: NavItem[]
 }
 
+const TODOS: Perfil[] = ['admin_saacs', 'gestora_coaf', 'tecnico_campo', 'coordenador_cooperamais', 'operador_emissao_caf']
+const ADMIN: Perfil[] = ['admin_saacs', 'coordenador_cooperamais']
+
 const NAV_SECTIONS: NavSection[] = [
   {
     label: 'OPERACIONAL',
     items: [
-      { href: '/dashboard/manifestos', label: 'Manifestos',  iconKey: 'manifestos', perfis: ['admin','gestor','analista','operador'] },
-      { href: '/dashboard/guias',      label: 'Guias (GRs)', iconKey: 'guias',      perfis: ['admin','gestor','analista','operador'] },
-      { href: '/dashboard/estoque',    label: 'Estoque',     iconKey: 'estoque',    perfis: ['admin','gestor','analista','operador','financeiro'] },
+      { href: '/dashboard/manifestos', label: 'Manifestos',  iconKey: 'manifestos', perfis: TODOS },
+      { href: '/dashboard/guias',      label: 'Guias (GRs)', iconKey: 'guias',      perfis: TODOS },
+      { href: '/dashboard/estoque',    label: 'Estoque',     iconKey: 'estoque',    perfis: TODOS },
     ],
   },
   {
     label: 'CADASTROS',
     items: [
-      { href: '/dashboard/clientes',          label: 'Clientes',          iconKey: 'clientes',  perfis: ['admin','gestor'] },
-      { href: '/dashboard/contratos',         label: 'Contratos',         iconKey: 'contratos', perfis: ['admin','gestor'] },
-      { href: '/dashboard/pontos-de-entrega', label: 'Pontos de Entrega', iconKey: 'pontos',    perfis: ['admin','gestor'] },
-      { href: '/dashboard/produtos',          label: 'Produtos',          iconKey: 'produtos',  perfis: ['admin','gestor'] },
-      { href: '/dashboard/rotas',             label: 'Rotas',             iconKey: 'rotas',     perfis: ['admin','gestor'] },
-      { href: '/dashboard/agregados',         label: 'Agregados',         iconKey: 'agregados', perfis: ['admin','gestor'] },
+      { href: '/dashboard/clientes',          label: 'Clientes',          iconKey: 'clientes',  perfis: ADMIN },
+      { href: '/dashboard/contratos',         label: 'Contratos',         iconKey: 'contratos', perfis: ADMIN },
+      { href: '/dashboard/pontos-de-entrega', label: 'Pontos de Entrega', iconKey: 'pontos',    perfis: ADMIN },
+      { href: '/dashboard/produtos',          label: 'Produtos',          iconKey: 'produtos',  perfis: ADMIN },
+      { href: '/dashboard/rotas',             label: 'Rotas',             iconKey: 'rotas',     perfis: ADMIN },
+      { href: '/dashboard/agregados',         label: 'Agregados',         iconKey: 'agregados', perfis: ADMIN },
     ],
   },
   {
     label: 'FINANCEIRO',
     items: [
-      { href: '/dashboard/financeiro', label: 'Financeiro', iconKey: 'financeiro', perfis: ['admin','financeiro'] },
+      { href: '/dashboard/financeiro', label: 'Financeiro', iconKey: 'financeiro', perfis: ADMIN },
     ],
   },
   {
     label: 'ADMIN',
     items: [
-      { href: '/dashboard/admin/usuarios', label: 'Usuários', iconKey: 'usuarios', perfis: ['admin'] },
+      { href: '/dashboard/admin/usuarios', label: 'Usuários', iconKey: 'usuarios', perfis: ['admin_saacs'] },
     ],
   },
 ]
