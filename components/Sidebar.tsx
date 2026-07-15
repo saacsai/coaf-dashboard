@@ -125,8 +125,8 @@ export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAbe
       >
       {/* Logo */}
       <div className="px-5 pt-11 pb-10">
-        <div className="flex items-center justify-start">
-          <Image src="/logo_coaf.png" alt="COAF 4.0" width={160} height={49} className="object-contain object-left" priority />
+        <div className="flex items-center justify-center">
+          <Image src="/logo_coaf.png" alt="COAF 4.0" width={160} height={49} className="object-contain" priority />
         </div>
       </div>
 
