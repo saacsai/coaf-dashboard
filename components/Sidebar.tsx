@@ -139,22 +139,6 @@ const NAV_SECTIONS: NavSection[] = [
       { href: '/dashboard/caf/autodeclaracoes', label: 'Autodeclarações', iconKey: 'autodeclaracoes', perfis: CAF_TODOS },
     ],
   },
-  // ── GESTORA — Parâmetros ──────────────────────────────────────────────
-  {
-    id: 'parametros',
-    label: 'PARÂMETROS',
-    items: [
-      { href: '/dashboard/parametros', label: 'Configurações', iconKey: 'parametros', perfis: GESTORA },
-    ],
-  },
-  // ── ADMIN ─────────────────────────────────────────────────────────────
-  {
-    id: 'admin',
-    label: 'ADMIN',
-    items: [
-      { href: '/dashboard/admin/usuarios', label: 'Usuários', iconKey: 'usuarios', perfis: ADMIN_ONLY },
-    ],
-  },
 ]
 
 interface Props {
@@ -196,20 +180,20 @@ export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAbe
           ${mobileAberto ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
         {/* Logo */}
-        <div style={{ paddingTop: 44, paddingBottom: 40, paddingLeft: 32, paddingRight: 32 }}>
+        <div style={{ paddingTop: 28, paddingBottom: 24, paddingLeft: 32, paddingRight: 32 }}>
           <Image src="/logo_coaf.png" alt="COAF 4.0" width={160} height={49} className="object-contain w-full" priority />
         </div>
 
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
 
         {/* Nav com seções */}
-        <nav className="flex-1 px-2 py-3 overflow-y-auto">
+        <nav className="flex-1 px-2 py-2 overflow-y-auto">
           {NAV_SECTIONS.map((section, si) => {
             const itens = section.items.filter(n => n.perfis.includes(perfil))
             if (itens.length === 0) return null
             return (
-              <div key={section.id} className={si > 0 ? 'mt-3' : ''}>
-                <p className="px-3 mb-1 text-[10px] font-semibold tracking-widest" style={{ color: 'rgba(164,194,244,0.5)' }}>
+              <div key={section.id} className={si > 0 ? 'mt-2' : ''}>
+                <p className="px-3 mb-0.5 text-[10px] font-semibold tracking-widest" style={{ color: 'rgba(164,194,244,0.5)' }}>
                   {section.label}
                 </p>
                 <div className="space-y-0.5">
@@ -219,7 +203,7 @@ export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAbe
                       <Link
                         key={item.href}
                         href={item.href}
-                        className="flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors"
+                        className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg transition-colors"
                         style={{
                           background: ativo ? 'rgba(255,255,255,0.15)' : 'transparent',
                           color:      ativo ? '#FFFFFF' : 'rgba(255,255,255,0.6)',
@@ -240,9 +224,9 @@ export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAbe
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
 
         {/* BIA */}
-        <div className="px-3 py-2">
+        <div className="px-3 py-1.5">
           <button
-            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors"
+            className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-sm transition-colors"
             style={{ background: 'rgba(164,194,244,0.15)', color: ACCENT }}
             disabled title="Em breve"
           >
@@ -260,6 +244,7 @@ export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAbe
             nomeExibido={nome || email}
             email={email}
             initials={iniciais(nome || email)}
+            perfil={perfil}
             dark
             onEditarPerfil={onEditarPerfil}
             onGerenciarPlano={() => {}}

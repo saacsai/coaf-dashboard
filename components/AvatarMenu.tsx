@@ -1,16 +1,19 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import type { Perfil } from '@/lib/supabase'
 
 interface Props {
-  nomeExibido: string
-  email: string
-  initials: string
-  onEditarPerfil: () => void
+  nomeExibido:      string
+  email:            string
+  initials:         string
+  perfil:           Perfil
+  onEditarPerfil:   () => void
   onGerenciarPlano: () => void
-  onUsoCredits: () => void
-  onSair: () => void
-  dark?: boolean  // fundo escuro — inverte cores do trigger
+  onUsoCredits:     () => void
+  onSair:           () => void
+  dark?:            boolean
 }
 
 function IconEdit() {
@@ -22,20 +25,20 @@ function IconEdit() {
   )
 }
 
-function IconPlan() {
+function IconSettings() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="5" width="20" height="14" rx="2"/>
-      <line x1="2" y1="10" x2="22" y2="10"/>
+      <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>
     </svg>
   )
 }
 
-function IconCredits() {
+function IconUsers() {
   return (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M12 6v6l4 2"/>
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
     </svg>
   )
 }
@@ -58,9 +61,12 @@ function IconChevron({ up }: { up: boolean }) {
   )
 }
 
-export default function AvatarMenu({ nomeExibido, email, initials, onEditarPerfil, onGerenciarPlano, onUsoCredits, onSair, dark = false }: Props) {
+const GESTORA_ROLES: Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais']
+
+export default function AvatarMenu({ nomeExibido, email, initials, perfil, onEditarPerfil, onGerenciarPlano, onUsoCredits, onSair, dark = false }: Props) {
   const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const ref             = useRef<HTMLDivElement>(null)
+  const router          = useRouter()
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -70,15 +76,27 @@ export default function AvatarMenu({ nomeExibido, email, initials, onEditarPerfi
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
+  const isGestora  = GESTORA_ROLES.includes(perfil)
+  const isAdmin    = perfil === 'admin_saacs'
+
+  function navTo(href: string) {
+    setOpen(false)
+    router.push(href)
+  }
+
   return (
     <div ref={ref} className="relative">
       {open && (
         <div className="absolute bottom-full left-0 right-0 mb-1 mx-1 bg-white border border-gray-200 rounded-xl shadow-lg py-1 z-50">
+          {/* Identidade */}
           <div className="px-3 py-2.5">
             <div className="text-sm font-semibold text-gray-900 truncate">{nomeExibido}</div>
             <div className="text-xs text-gray-500 truncate">{email}</div>
           </div>
+
           <div className="border-t border-gray-100 my-1" />
+
+          {/* Perfil */}
           <button
             onClick={() => { setOpen(false); onEditarPerfil() }}
             className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2.5"
@@ -86,21 +104,36 @@ export default function AvatarMenu({ nomeExibido, email, initials, onEditarPerfi
             <span className="text-gray-400"><IconEdit /></span>
             Editar perfil
           </button>
-          <button
-            onClick={() => { setOpen(false); onGerenciarPlano() }}
-            className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2.5"
-          >
-            <span className="text-gray-400"><IconPlan /></span>
-            Gerenciar plano
-          </button>
-          <button
-            onClick={() => { setOpen(false); onUsoCredits() }}
-            className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2.5"
-          >
-            <span className="text-gray-400"><IconCredits /></span>
-            Uso e créditos
-          </button>
+
+          {/* Configurações — visíveis para gestora e admin */}
+          {(isGestora || isAdmin) && (
+            <>
+              <div className="border-t border-gray-100 my-1" />
+              <p className="px-3 pt-1 pb-0.5 text-[10px] font-semibold tracking-widest text-gray-400">SISTEMA</p>
+              {isGestora && (
+                <button
+                  onClick={() => navTo('/dashboard/parametros')}
+                  className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2.5"
+                >
+                  <span className="text-gray-400"><IconSettings /></span>
+                  Configurações
+                </button>
+              )}
+              {isAdmin && (
+                <button
+                  onClick={() => navTo('/dashboard/admin/usuarios')}
+                  className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2.5"
+                >
+                  <span className="text-gray-400"><IconUsers /></span>
+                  Usuários
+                </button>
+              )}
+            </>
+          )}
+
           <div className="border-t border-gray-100 my-1" />
+
+          {/* Sair */}
           <button
             onClick={() => { setOpen(false); onSair() }}
             className="w-full text-left px-3 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors flex items-center gap-2.5"
