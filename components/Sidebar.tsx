@@ -28,31 +28,48 @@ function Icon({ d, d2, d3, circle }: {
 }
 
 const ICONS: Record<string, React.ReactNode> = {
-  // GESTORA — Vendas
-  contratos:        <Icon d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" d2="M14 2v6h6M16 13H8M16 17H8M10 9H8" />,
+  // — Venda —
   clientes:         <Icon d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18H6z" d2="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" d3="M10 7h4M10 11h4M10 15h4" />,
-  // GESTORA — Compras
+  produtos:         <Icon d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" circle={{ cx: 7, cy: 7, r: 1 }} />,
+  pedidos_venda:    <Icon d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" d2="M3 6h18" d3="M16 10a4 4 0 0 1-8 0" />,
+  nf_saida:         <Icon d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" d2="M14 2v6h6" d3="M9 16l2-3 2 3M11 13v5" />,
+  // — Compras —
   fornecedores:     <Icon d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 2 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" d2="M3.27 6.96 12 12.01l8.73-5.05M12 22.08V12" />,
-  despesas:         <Icon d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2" d2="M9 12h6M9 16h4" />,
-  // GESTORA — Financeiro
-  financeiro:       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>,
-  fates:            <Icon d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />,
-  // GESTORA — Legal
-  consentimentos:   <Icon d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" d2="M9 12l2 2 4-4" />,
-  // GESTORA — Cooperados
+  pedidos_compra:   (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="21" r="1" />
+      <circle cx="20" cy="21" r="1" />
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+    </svg>
+  ),
+  nf_entrada:       <Icon d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" d2="M14 2v6h6" d3="M9 13l2 3 2-3M11 11v5" />,
+  // — Operação —
   cooperados:       <Icon d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" circle={{ cx: 9, cy: 7, r: 4 }} />,
-  // GESTORA — Parâmetros
-  parametros:       <Icon d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" />,
-  // TÉCNICO — Campo
-  campo:            <Icon d="M12 22V12" d2="M12 12C10 8 5 8 5 4a7 7 0 0 1 14 0c0 4-5 4-7 8z" />,
-  nf_produtor:      <Icon d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" d2="M14 2v6h6M8 13h5M8 17h3" d3="M15 13l2 2-2 2" />,
-  // CAF (ambos perfis)
-  solicitacoes_caf: <Icon d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" d2="M9 3h6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" d3="M9 12h6M9 16h4" />,
-  autodeclaracoes:  <Icon d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" d2="M8 11h8M8 15h5" />,
-  // ADMIN
-  usuarios:         <Icon d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" circle={{ cx: 9, cy: 7, r: 4 }} />,
-  // BIA
+  tecnicos:         <Icon d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" d2="M16 11l2 2 4-4" circle={{ cx: 12, cy: 7, r: 4 }} />,
+  disponibilidades: <Icon d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />,
+  despesas:         <Icon d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2" d2="M9 12h6M9 16h4" />,
+  cpr:              <Icon d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" d2="M14 2v6h6" d3="M8 14h3M8 17h1l4-4" />,
+  barter:           <Icon d="M7 16V4M7 4L3 8M7 4l4 4M17 8v12M17 20l-4-4M17 20l4-4" />,
+  fates:            <Icon d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />,
+  // — Financeiro —
+  contas_receber:   <Icon d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" d2="M7 10l5 5 5-5" d3="M12 15V3" />,
+  contas_pagar:     <Icon d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" d2="M17 8l-5-5-5 5" d3="M12 3v12" />,
+  conta_corrente:   (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="6" width="20" height="12" rx="2"/>
+      <circle cx="12" cy="12" r="2"/>
+      <path d="M6 12h.01M18 12h.01"/>
+    </svg>
+  ),
+  // — Legal —
+  contratos:        <Icon d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" d2="M14 2v6h6M16 13H8M16 17H8M10 9H8" />,
+  consentimentos:   <Icon d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" d2="M9 12l2 2 4-4" />,
+  // — CAF (técnico) —
+  caf:              <Icon d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" d2="M9 3h6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" d3="M9 12h6M9 16h4" />,
+  // — BIA —
   bia:              <Icon d="M12 8V4H8M12 8c-3.87 0-6 2-6 4v4h12v-4c0-2-2.13-4-6-4zM2 14h3M19 14h3M6 18v2M18 18v2" d2="M9 14h.01M15 14h.01" />,
+  // — Admin —
+  usuarios:         <Icon d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" circle={{ cx: 9, cy: 7, r: 4 }} />,
 }
 
 interface NavItem {
@@ -68,75 +85,95 @@ interface NavSection {
   items: NavItem[]
 }
 
-const GESTORA:    Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais']
-const OPERACIONAL: Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais', 'operador_emissao_caf']
-const TECNICO:    Perfil[] = ['tecnico_campo', 'agente_campo']
-const CAF_TODOS:  Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais', 'operador_emissao_caf', 'tecnico_campo', 'agente_campo']
-const ADMIN_ONLY: Perfil[] = ['admin_saacs']
+const GESTORA:      Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais']
+const COM_OPERADOR: Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais', 'operador_emissao_caf']
+const TECNICO:      Perfil[] = ['tecnico_campo', 'agente_campo']
 
 const NAV_SECTIONS: NavSection[] = [
-  // ── GESTORA ──────────────────────────────────────────────────────────
+  // ── COOPERATIVA ──────────────────────────────────────────────────────
   {
-    id: 'vendas',
-    label: 'VENDAS',
+    id: 'venda',
+    label: 'VENDA',
     items: [
-      { href: '/dashboard/contratos', label: 'Contratos PNAE', iconKey: 'contratos',  perfis: OPERACIONAL },
-      { href: '/dashboard/clientes',  label: 'Clientes',       iconKey: 'clientes',   perfis: GESTORA },
+      { href: '/dashboard/clientes',      label: 'Clientes',         iconKey: 'clientes',      perfis: GESTORA },
+      { href: '/dashboard/produtos',      label: 'Produtos',         iconKey: 'produtos',      perfis: GESTORA },
+      { href: '/dashboard/pedidos-venda', label: 'Pedidos de Venda', iconKey: 'pedidos_venda', perfis: GESTORA },
+      { href: '/dashboard/nf-saida',      label: 'NF de Saída',      iconKey: 'nf_saida',      perfis: GESTORA },
     ],
   },
   {
     id: 'compras',
     label: 'COMPRAS',
     items: [
-      { href: '/dashboard/fornecedores', label: 'Fornecedores', iconKey: 'fornecedores', perfis: GESTORA },
-      { href: '/dashboard/despesas',     label: 'Despesas',     iconKey: 'despesas',     perfis: GESTORA },
+      { href: '/dashboard/fornecedores',   label: 'Fornecedores',     iconKey: 'fornecedores',   perfis: GESTORA },
+      { href: '/dashboard/pedidos-compra', label: 'Pedidos de Compra', iconKey: 'pedidos_compra', perfis: GESTORA },
+      { href: '/dashboard/nf-entrada',     label: 'NF de Entrada',    iconKey: 'nf_entrada',     perfis: GESTORA },
+    ],
+  },
+  {
+    id: 'operacao',
+    label: 'OPERAÇÃO',
+    items: [
+      { href: '/dashboard/cooperados',       label: 'Cooperados',       iconKey: 'cooperados',       perfis: COM_OPERADOR },
+      { href: '/dashboard/tecnicos',         label: 'Técnicos',         iconKey: 'tecnicos',         perfis: GESTORA },
+      { href: '/dashboard/disponibilidades', label: 'Disponibilidades', iconKey: 'disponibilidades', perfis: GESTORA },
+      { href: '/dashboard/despesas',         label: 'Custos/Despesas',  iconKey: 'despesas',         perfis: GESTORA },
+      { href: '/dashboard/cpr',              label: 'CPR',              iconKey: 'cpr',              perfis: GESTORA },
+      { href: '/dashboard/barter',           label: 'Barter',           iconKey: 'barter',           perfis: GESTORA },
+      { href: '/dashboard/fates',            label: 'FATES',            iconKey: 'fates',            perfis: GESTORA },
     ],
   },
   {
     id: 'financeiro',
     label: 'FINANCEIRO',
     items: [
-      { href: '/dashboard/financeiro', label: 'Conta Corrente', iconKey: 'financeiro', perfis: GESTORA },
-      { href: '/dashboard/fates',      label: 'FATES',          iconKey: 'fates',      perfis: GESTORA },
+      { href: '/dashboard/contas-receber', label: 'Contas a Receber', iconKey: 'contas_receber', perfis: GESTORA },
+      { href: '/dashboard/contas-pagar',   label: 'Contas a Pagar',   iconKey: 'contas_pagar',   perfis: GESTORA },
+      { href: '/dashboard/financeiro',     label: 'Conta Corrente',   iconKey: 'conta_corrente', perfis: GESTORA },
     ],
   },
   {
     id: 'legal',
     label: 'LEGAL',
     items: [
-      { href: '/dashboard/consentimentos', label: 'Consentimentos', iconKey: 'consentimentos', perfis: OPERACIONAL },
+      { href: '/dashboard/contratos',      label: 'Contratos PNAE', iconKey: 'contratos',    perfis: COM_OPERADOR },
+      { href: '/dashboard/consentimentos', label: 'Consentimentos', iconKey: 'consentimentos', perfis: COM_OPERADOR },
+    ],
+  },
+  // ── AGRICULTOR (técnico operando como AF) ────────────────────────────
+  {
+    id: 'af-venda',
+    label: 'VENDA',
+    items: [
+      { href: '/dashboard/af/clientes',      label: 'Clientes',         iconKey: 'clientes',      perfis: TECNICO },
+      { href: '/dashboard/af/produtos',      label: 'Produtos',         iconKey: 'produtos',      perfis: TECNICO },
+      { href: '/dashboard/af/pedidos-venda', label: 'Pedidos de Venda', iconKey: 'pedidos_venda', perfis: TECNICO },
+      { href: '/dashboard/af/nf-saida',      label: 'NF de Saída',      iconKey: 'nf_saida',      perfis: TECNICO },
     ],
   },
   {
-    id: 'cooperados-gestora',
-    label: 'COOPERADOS',
+    id: 'af-compras',
+    label: 'COMPRAS',
     items: [
-      { href: '/dashboard/cooperados', label: 'Cooperados', iconKey: 'cooperados', perfis: GESTORA },
-    ],
-  },
-  // ── TÉCNICO ──────────────────────────────────────────────────────────
-  {
-    id: 'campo',
-    label: 'CAMPO',
-    items: [
-      { href: '/dashboard/campo',             label: 'Caderno de Campo', iconKey: 'campo',       perfis: TECNICO },
-      { href: '/dashboard/campo/nf-produtor', label: 'NF do Produtor',  iconKey: 'nf_produtor', perfis: TECNICO },
+      { href: '/dashboard/af/fornecedores', label: 'Fornecedores', iconKey: 'fornecedores', perfis: TECNICO },
     ],
   },
   {
-    id: 'cooperados-tecnico',
-    label: 'COOPERADOS',
+    id: 'af-operacao',
+    label: 'OPERAÇÃO',
     items: [
-      { href: '/dashboard/cooperados', label: 'Cooperados', iconKey: 'cooperados', perfis: TECNICO },
+      { href: '/dashboard/af/disponibilidades', label: 'Disponibilidades', iconKey: 'disponibilidades', perfis: TECNICO },
+      { href: '/dashboard/af/despesas',         label: 'Custos/Despesas',  iconKey: 'despesas',         perfis: TECNICO },
+      { href: '/dashboard/af/caf',              label: 'CAF',              iconKey: 'caf',              perfis: TECNICO },
     ],
   },
-  // ── AMBOS ────────────────────────────────────────────────────────────
   {
-    id: 'caf',
-    label: 'EMISSÃO CAF',
+    id: 'af-financeiro',
+    label: 'FINANCEIRO',
     items: [
-      { href: '/dashboard/caf/solicitacoes',    label: 'Solicitações',    iconKey: 'solicitacoes_caf', perfis: CAF_TODOS },
-      { href: '/dashboard/caf/autodeclaracoes', label: 'Autodeclarações', iconKey: 'autodeclaracoes', perfis: CAF_TODOS },
+      { href: '/dashboard/af/contas-receber', label: 'Contas a Receber', iconKey: 'contas_receber', perfis: TECNICO },
+      { href: '/dashboard/af/contas-pagar',   label: 'Contas a Pagar',   iconKey: 'contas_pagar',   perfis: TECNICO },
+      { href: '/dashboard/af/conta-corrente', label: 'Conta Corrente',   iconKey: 'conta_corrente', perfis: TECNICO },
     ],
   },
 ]
