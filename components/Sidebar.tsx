@@ -7,9 +7,10 @@ import { getSupabase } from '@/lib/supabase'
 import AvatarMenu from './AvatarMenu'
 import type { Perfil } from '@/lib/supabase'
 
-const PRIMARY   = '#073763'
-const ACCENT    = '#a4c2f4'
-const SIDEBAR_W = '224px'
+const PRIMARY             = '#073763'
+const ACCENT              = '#a4c2f4'
+const SIDEBAR_W           = '224px'
+const SIDEBAR_W_COLLAPSED = '52px'
 
 function Icon({ d, d2, d3, circle }: {
   d: string
@@ -64,7 +65,7 @@ const ICONS: Record<string, React.ReactNode> = {
   // — Legal —
   contratos:        <Icon d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" d2="M14 2v6h6M16 13H8M16 17H8M10 9H8" />,
   consentimentos:   <Icon d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" d2="M9 12l2 2 4-4" />,
-  // — CAF (técnico) —
+  // — CAF —
   caf:              <Icon d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" d2="M9 3h6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" d3="M9 12h6M9 16h4" />,
   // — BIA —
   bia:              <Icon d="M12 8V4H8M12 8c-3.87 0-6 2-6 4v4h12v-4c0-2-2.13-4-6-4zM2 14h3M19 14h3M6 18v2M18 18v2" d2="M9 14h.01M15 14h.01" />,
@@ -105,9 +106,9 @@ const NAV_SECTIONS: NavSection[] = [
     id: 'compras',
     label: 'COMPRAS',
     items: [
-      { href: '/dashboard/fornecedores',   label: 'Fornecedores',     iconKey: 'fornecedores',   perfis: GESTORA },
+      { href: '/dashboard/fornecedores',   label: 'Fornecedores',      iconKey: 'fornecedores',   perfis: GESTORA },
       { href: '/dashboard/pedidos-compra', label: 'Pedidos de Compra', iconKey: 'pedidos_compra', perfis: GESTORA },
-      { href: '/dashboard/nf-entrada',     label: 'NF de Entrada',    iconKey: 'nf_entrada',     perfis: GESTORA },
+      { href: '/dashboard/nf-entrada',     label: 'NF de Entrada',     iconKey: 'nf_entrada',     perfis: GESTORA },
     ],
   },
   {
@@ -136,7 +137,7 @@ const NAV_SECTIONS: NavSection[] = [
     id: 'legal',
     label: 'LEGAL',
     items: [
-      { href: '/dashboard/contratos',      label: 'Contratos PNAE', iconKey: 'contratos',    perfis: COM_OPERADOR },
+      { href: '/dashboard/contratos',      label: 'Contratos PNAE', iconKey: 'contratos',      perfis: COM_OPERADOR },
       { href: '/dashboard/consentimentos', label: 'Consentimentos', iconKey: 'consentimentos', perfis: COM_OPERADOR },
     ],
   },
@@ -179,19 +180,37 @@ const NAV_SECTIONS: NavSection[] = [
 ]
 
 interface Props {
-  nome:            string
-  email:           string
-  perfil:          Perfil
-  onEditarPerfil:  () => void
-  mobileAberto?:   boolean
-  onMobileFechar?: () => void
+  nome:             string
+  email:            string
+  perfil:           Perfil
+  collapsed:        boolean
+  onToggleCollapse: () => void
+  onEditarPerfil:   () => void
+  mobileAberto?:    boolean
+  onMobileFechar?:  () => void
 }
 
 function iniciais(nome: string) {
   return nome.split(' ').filter(Boolean).slice(0, 2).map(p => p[0].toUpperCase()).join('')
 }
 
-export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAberto = false, onMobileFechar }: Props) {
+function ChevronLeft() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  )
+}
+
+function ChevronRight() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 18l6-6-6-6" />
+    </svg>
+  )
+}
+
+export default function Sidebar({ nome, email, perfil, collapsed, onToggleCollapse, onEditarPerfil, mobileAberto = false, onMobileFechar }: Props) {
   const pathname = usePathname()
   const router   = useRouter()
 
@@ -201,98 +220,176 @@ export default function Sidebar({ nome, email, perfil, onEditarPerfil, mobileAbe
     router.refresh()
   }
 
+  const w = collapsed ? SIDEBAR_W_COLLAPSED : SIDEBAR_W
+
   return (
     <>
-      {/* Backdrop mobile */}
       {mobileAberto && (
-        <div
-          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
-          onClick={onMobileFechar}
-        />
+        <div className="fixed inset-0 bg-black/50 z-20 lg:hidden" onClick={onMobileFechar} />
       )}
 
       <aside
-        style={{ width: SIDEBAR_W, minWidth: SIDEBAR_W, background: PRIMARY }}
-        className={`fixed left-0 top-0 h-screen flex flex-col z-30 transition-transform duration-200 ease-in-out
+        style={{ width: w, minWidth: w, background: PRIMARY }}
+        className={`fixed left-0 top-0 h-screen flex flex-col z-30 transition-all duration-200 ease-in-out overflow-hidden
           ${mobileAberto ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
         {/* Logo */}
-        <div style={{ paddingTop: 28, paddingBottom: 24, paddingLeft: 32, paddingRight: 32 }}>
-          <Image src="/logo_coaf.png" alt="COAF 4.0" width={160} height={49} className="object-contain w-full" priority />
+        <div
+          className="flex items-center justify-center flex-shrink-0"
+          style={{ paddingTop: 14, paddingBottom: 10, paddingLeft: collapsed ? 0 : 24, paddingRight: collapsed ? 0 : 24 }}
+        >
+          {collapsed ? (
+            <div
+              className="flex items-center justify-center rounded-lg text-[10px] font-bold flex-shrink-0"
+              style={{ width: 30, height: 30, background: ACCENT, color: PRIMARY }}
+            >
+              C4
+            </div>
+          ) : (
+            <Image src="/logo_coaf.png" alt="COAF 4.0" width={152} height={46} className="object-contain w-full" priority />
+          )}
         </div>
 
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
+        <div className="flex-shrink-0" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
 
-        {/* Nav com seções */}
-        <nav className="flex-1 px-2 py-2 overflow-y-auto">
-          {NAV_SECTIONS.map((section, si) => {
-            const itens = section.items.filter(n => n.perfis.includes(perfil))
-            if (itens.length === 0) return null
-            return (
-              <div key={section.id} className={si > 0 ? 'mt-2' : ''}>
-                <p className="px-3 mb-0.5 text-[10px] font-semibold tracking-widest" style={{ color: 'rgba(164,194,244,0.5)' }}>
-                  {section.label}
-                </p>
-                <div className="space-y-0.5">
-                  {itens.map(item => {
-                    const ativo = pathname === item.href || pathname.startsWith(item.href + '/')
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg transition-colors"
-                        style={{
-                          background: ativo ? 'rgba(255,255,255,0.15)' : 'transparent',
-                          color:      ativo ? '#FFFFFF' : 'rgba(255,255,255,0.6)',
-                          fontWeight: ativo ? 600 : 400,
-                        }}
-                      >
-                        <span className="flex-shrink-0">{ICONS[item.iconKey]}</span>
-                        <span className="text-[13px]">{item.label}</span>
-                      </Link>
-                    )
-                  })}
+        {/* Nav */}
+        <nav className="flex-1 overflow-y-auto overflow-x-hidden" style={{ padding: '6px 4px' }}>
+          {(() => {
+            let isFirst = true
+            return NAV_SECTIONS.map((section) => {
+              const itens = section.items.filter(n => n.perfis.includes(perfil))
+              if (itens.length === 0) return null
+              const addMargin = !isFirst
+              if (isFirst) isFirst = false
+
+              return (
+                <div key={section.id} style={{ marginTop: addMargin ? 4 : 0 }}>
+                  {!collapsed && (
+                    <p
+                      className="font-semibold tracking-widest"
+                      style={{ fontSize: 9, color: 'rgba(164,194,244,0.5)', padding: '0 8px', marginBottom: 2 }}
+                    >
+                      {section.label}
+                    </p>
+                  )}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    {itens.map(item => {
+                      const ativo = pathname === item.href || pathname.startsWith(item.href + '/')
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          title={collapsed ? item.label : undefined}
+                          className="flex items-center rounded-md transition-colors"
+                          style={{
+                            background: ativo ? 'rgba(255,255,255,0.15)' : 'transparent',
+                            color:      ativo ? '#FFFFFF' : 'rgba(255,255,255,0.6)',
+                            fontWeight: ativo ? 600 : 400,
+                            justifyContent: collapsed ? 'center' : 'flex-start',
+                            gap: collapsed ? 0 : 8,
+                            padding: collapsed ? '5px 0' : '4px 8px',
+                          }}
+                        >
+                          <span className="flex-shrink-0">{ICONS[item.iconKey]}</span>
+                          {!collapsed && (
+                            <span style={{ fontSize: 12 }}>{item.label}</span>
+                          )}
+                        </Link>
+                      )
+                    })}
+                  </div>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })
+          })()}
         </nav>
 
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
-
-        {/* BIA */}
-        <div className="px-3 py-1.5">
+        {/* Toggle collapse */}
+        <div className="flex-shrink-0 flex" style={{ padding: '4px', justifyContent: collapsed ? 'center' : 'flex-end' }}>
           <button
-            className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-sm transition-colors"
-            style={{ background: 'rgba(164,194,244,0.15)', color: ACCENT }}
-            disabled title="Em breve"
+            onClick={onToggleCollapse}
+            className="flex items-center rounded-md transition-colors"
+            style={{
+              gap: 4,
+              padding: collapsed ? '5px 8px' : '4px 8px',
+              color: 'rgba(255,255,255,0.35)',
+              fontSize: 11,
+            }}
+            title={collapsed ? 'Expandir menu' : 'Recolher menu'}
           >
-            <span className="flex-shrink-0">{ICONS.bia}</span>
-            <span className="flex-1 text-left text-[13px]">BIA</span>
-            <span className="text-[10px] rounded px-1.5 py-0.5" style={{ background: 'rgba(164,194,244,0.2)', color: ACCENT }}>
-              em breve
-            </span>
+            {collapsed ? <ChevronRight /> : (
+              <>
+                <ChevronLeft />
+                <span>Recolher</span>
+              </>
+            )}
           </button>
         </div>
 
-        {/* Usuário */}
-        <div className="px-2 pb-2">
-          <AvatarMenu
-            nomeExibido={nome || email}
-            email={email}
-            initials={iniciais(nome || email)}
-            perfil={perfil}
-            dark
-            onEditarPerfil={onEditarPerfil}
-            onGerenciarPlano={() => {}}
-            onUsoCredits={() => {}}
-            onSair={handleLogout}
-          />
+        <div className="flex-shrink-0" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
+
+        {/* BIA */}
+        <div
+          className="flex-shrink-0"
+          style={{ padding: '4px', display: 'flex', justifyContent: collapsed ? 'center' : 'stretch' }}
+        >
+          {collapsed ? (
+            <button
+              className="flex items-center justify-center rounded-md transition-colors flex-shrink-0"
+              style={{ width: 32, height: 26, background: 'rgba(164,194,244,0.15)', color: ACCENT }}
+              disabled title="BIA — em breve"
+            >
+              {ICONS.bia}
+            </button>
+          ) : (
+            <button
+              className="w-full flex items-center rounded-md transition-colors"
+              style={{ background: 'rgba(164,194,244,0.15)', color: ACCENT, gap: 8, padding: '4px 8px' }}
+              disabled title="Em breve"
+            >
+              <span className="flex-shrink-0">{ICONS.bia}</span>
+              <span style={{ flex: 1, textAlign: 'left', fontSize: 12 }}>BIA</span>
+              <span
+                className="rounded"
+                style={{ fontSize: 9, padding: '2px 5px', background: 'rgba(164,194,244,0.2)', color: ACCENT }}
+              >
+                em breve
+              </span>
+            </button>
+          )}
         </div>
 
-        <div className="flex justify-center pb-3">
-          <Image src="/logo_saacs_sem_slogan.png" alt="SAACS" width={83} height={22} className="object-contain opacity-50" />
+        {/* Avatar */}
+        <div className="flex-shrink-0" style={{ padding: collapsed ? '0 4px 6px' : '0 4px 6px' }}>
+          {collapsed ? (
+            <button
+              onClick={onEditarPerfil}
+              className="flex items-center justify-center rounded-full font-bold mx-auto"
+              style={{ width: 32, height: 32, background: ACCENT, color: PRIMARY, fontSize: 11 }}
+              title={nome || email}
+            >
+              {iniciais(nome || email)}
+            </button>
+          ) : (
+            <AvatarMenu
+              nomeExibido={nome || email}
+              email={email}
+              initials={iniciais(nome || email)}
+              perfil={perfil}
+              dark
+              onEditarPerfil={onEditarPerfil}
+              onGerenciarPlano={() => {}}
+              onUsoCredits={() => {}}
+              onSair={handleLogout}
+            />
+          )}
         </div>
+
+        {!collapsed && (
+          <div className="flex-shrink-0 flex justify-center" style={{ paddingBottom: 8 }}>
+            <Image src="/logo_saacs_sem_slogan.png" alt="SAACS" width={70} height={19} className="object-contain opacity-40" />
+          </div>
+        )}
       </aside>
     </>
   )

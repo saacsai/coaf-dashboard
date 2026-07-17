@@ -6,16 +6,28 @@ import Sidebar from '@/components/Sidebar'
 import Drawer from '@/components/Drawer'
 import type { Perfil } from '@/lib/supabase'
 
-const SIDEBAR_W = '224px'
-const PRIMARY   = '#073763'
+const PRIMARY = '#073763'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const [loading,      setLoading]     = useState(true)
-  const [nome,         setNome]        = useState('')
-  const [email,        setEmail]       = useState('')
-  const [perfil,       setPerfil]      = useState<Perfil>('operador_emissao_caf')
-  const [drawerPerfil, setDrawerPerfil] = useState(false)
-  const [menuMobile,   setMenuMobile]  = useState(false)
+  const [loading,          setLoading]         = useState(true)
+  const [nome,             setNome]            = useState('')
+  const [email,            setEmail]           = useState('')
+  const [perfil,           setPerfil]          = useState<Perfil>('operador_emissao_caf')
+  const [drawerPerfil,     setDrawerPerfil]    = useState(false)
+  const [menuMobile,       setMenuMobile]      = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('coaf-sidebar-collapsed')
+    if (saved === 'true') setSidebarCollapsed(true)
+  }, [])
+
+  function handleToggleSidebar() {
+    setSidebarCollapsed(c => {
+      localStorage.setItem('coaf-sidebar-collapsed', String(!c))
+      return !c
+    })
+  }
 
   useEffect(() => {
     const supabase = getSupabase()
@@ -73,12 +85,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           nome={nome}
           email={email}
           perfil={perfil}
+          collapsed={sidebarCollapsed}
+          onToggleCollapse={handleToggleSidebar}
           onEditarPerfil={abrirDrawerPerfil}
           mobileAberto={menuMobile}
           onMobileFechar={() => setMenuMobile(false)}
         />
       </div>
-      <main className="p-4 lg:p-8 pt-[72px] lg:pt-0 ml-0 lg:ml-[224px] print:ml-0 print:p-4" style={{ minHeight: '100vh' }}>
+      <main
+        className={`p-4 lg:p-8 pt-[72px] lg:pt-0 ml-0 print:ml-0 print:p-4 transition-all duration-200 ${
+          sidebarCollapsed ? 'lg:ml-[52px]' : 'lg:ml-[224px]'
+        }`}
+        style={{ minHeight: '100vh' }}
+      >
         {children}
       </main>
 
