@@ -45,9 +45,14 @@ export interface Cliente {
   razao_social: string | null
   endereco: string | null
   municipio: string | null
+  uf: string | null
   cep: string | null
   telefone: string | null
   email: string | null
+  modelo_venda: 'compra_venda' | 'prestacao_servicos' | null
+  pct_taxa_cooperativa: number | null
+  pct_logistica: number | null
+  pct_repasse_cooperado: number | null
   ativo: boolean
   created_at: string
 }

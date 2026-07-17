@@ -3,6 +3,7 @@ export interface DadosCNPJ {
   nome_fantasia: string
   endereco: string
   municipio: string
+  uf: string
   cep: string
   telefone: string
   email: string
@@ -29,6 +30,7 @@ export async function buscarCNPJ(cnpj: string): Promise<DadosCNPJ | null> {
       nome_fantasia: d.nome_fantasia || '',
       endereco:      logradouro,
       municipio:     d.municipio || '',
+      uf:            d.uf || '',
       cep:           cepRaw.length === 8 ? `${cepRaw.slice(0, 5)}-${cepRaw.slice(5)}` : cepRaw,
       telefone:      formatarTelefone(d.ddd_telefone_1 || ''),
       email:         d.email || '',
