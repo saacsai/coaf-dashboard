@@ -149,3 +149,38 @@ export interface Agregado {
   created_at: string
   access_token: string | null
 }
+
+export interface Fornecedor {
+  id: string
+  coaf_id: string
+  nome: string
+  tipo_pessoa: 'pj' | 'pf'
+  cnpj: string | null
+  cpf: string | null
+  categoria: 'logistica' | 'insumos' | 'servicos' | 'contabilidade' | 'juridico' | 'outro'
+  municipio_nome: string | null
+  uf: string | null
+  email: string | null
+  telefone: string | null
+  observacao: string | null
+  ativo: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface AgricultorFamiliar {
+  id: string
+  coaf_id: string
+  nome: string
+  cpf: string
+  data_nascimento: string | null
+  sexo: 'M' | 'F' | null
+  telefone_whatsapp: string | null
+  email: string | null
+  numero_matricula: string | null
+  data_admissao: string | null
+  data_desligamento: string | null
+  habilitado_pnae: boolean
+  ativo: boolean
+  created_at: string
+}
