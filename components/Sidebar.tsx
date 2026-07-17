@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { getSupabase } from '@/lib/supabase'
 import AvatarMenu from './AvatarMenu'
@@ -210,9 +211,40 @@ function ChevronRight() {
   )
 }
 
+function ChevronDown({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
+      strokeLinecap="round" strokeLinejoin="round"
+      style={{ transition: 'transform 150ms ease', transform: open ? 'rotate(0deg)' : 'rotate(-90deg)', flexShrink: 0 }}
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  )
+}
+
 export default function Sidebar({ nome, email, perfil, collapsed, onToggleCollapse, onEditarPerfil, mobileAberto = false, onMobileFechar }: Props) {
   const pathname = usePathname()
   const router   = useRouter()
+
+  const allSectionIds = NAV_SECTIONS.map(s => s.id)
+  const [openSections, setOpenSections] = useState<Set<string>>(new Set(allSectionIds))
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('coaf-sidebar-sections')
+      if (saved) setOpenSections(new Set(JSON.parse(saved) as string[]))
+    } catch {}
+  }, [])
+
+  function toggleSection(id: string) {
+    setOpenSections(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      try { localStorage.setItem('coaf-sidebar-sections', JSON.stringify(Array.from(next))) } catch {}
+      return next
+    })
+  }
 
   async function handleLogout() {
     await getSupabase().auth.signOut()
@@ -246,7 +278,7 @@ export default function Sidebar({ nome, email, perfil, collapsed, onToggleCollap
               C4
             </div>
           ) : (
-            <Image src="/logo_coaf.png" alt="COAF 4.0" width={152} height={46} className="object-contain w-full" priority />
+            <Image src="/logo_coaf.png" alt="COAF 4.0" width={136} height={41} className="object-contain w-full" priority />
           )}
         </div>
 
@@ -261,18 +293,34 @@ export default function Sidebar({ nome, email, perfil, collapsed, onToggleCollap
               if (itens.length === 0) return null
               const addMargin = !isFirst
               if (isFirst) isFirst = false
+              const isOpen = collapsed || openSections.has(section.id)
 
               return (
                 <div key={section.id} style={{ marginTop: addMargin ? 4 : 0 }}>
+                  {/* Cabeçalho da seção — clicável quando expandido */}
                   {!collapsed && (
-                    <p
-                      className="font-semibold tracking-widest"
-                      style={{ fontSize: 9, color: 'rgba(164,194,244,0.5)', padding: '0 8px', marginBottom: 2 }}
+                    <button
+                      onClick={() => toggleSection(section.id)}
+                      className="w-full flex items-center justify-between transition-opacity hover:opacity-80"
+                      style={{ padding: '0 8px', marginBottom: isOpen ? 2 : 0 }}
                     >
-                      {section.label}
-                    </p>
+                      <span className="font-semibold tracking-widest" style={{ fontSize: 9, color: 'rgba(164,194,244,0.5)' }}>
+                        {section.label}
+                      </span>
+                      <span style={{ color: 'rgba(164,194,244,0.4)' }}>
+                        <ChevronDown open={isOpen} />
+                      </span>
+                    </button>
                   )}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  {/* Items com slide accordion */}
+                  <div style={{
+                    overflow: 'hidden',
+                    maxHeight: isOpen ? '600px' : '0px',
+                    transition: 'max-height 180ms ease',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 1,
+                  }}>
                     {itens.map(item => {
                       const ativo = pathname === item.href || pathname.startsWith(item.href + '/')
                       return (
@@ -291,9 +339,7 @@ export default function Sidebar({ nome, email, perfil, collapsed, onToggleCollap
                           }}
                         >
                           <span className="flex-shrink-0">{ICONS[item.iconKey]}</span>
-                          {!collapsed && (
-                            <span style={{ fontSize: 12 }}>{item.label}</span>
-                          )}
+                          {!collapsed && <span style={{ fontSize: 12 }}>{item.label}</span>}
                         </Link>
                       )
                     })}
