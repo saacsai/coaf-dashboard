@@ -278,7 +278,7 @@ export default function Sidebar({ nome, email, perfil, collapsed, onToggleCollap
               C4
             </div>
           ) : (
-            <Image src="/logo_coaf.png" alt="COAF 4.0" width={136} height={41} className="object-contain w-full" priority />
+            <Image src="/logo_coaf.png" alt="COAF 4.0" width={136} height={41} className="object-contain" priority />
           )}
         </div>
 
@@ -301,13 +301,13 @@ export default function Sidebar({ nome, email, perfil, collapsed, onToggleCollap
                   {!collapsed && (
                     <button
                       onClick={() => toggleSection(section.id)}
-                      className="w-full flex items-center justify-between transition-opacity hover:opacity-80"
-                      style={{ padding: '0 8px', marginBottom: isOpen ? 2 : 0 }}
+                      className="flex items-center transition-opacity hover:opacity-80"
+                      style={{ padding: '0 8px', marginBottom: isOpen ? 2 : 0, gap: 4 }}
                     >
-                      <span className="font-semibold tracking-widest" style={{ fontSize: 9, color: 'rgba(164,194,244,0.5)' }}>
+                      <span className="font-semibold tracking-widest" style={{ fontSize: 10, color: 'rgba(164,194,244,0.55)' }}>
                         {section.label}
                       </span>
-                      <span style={{ color: 'rgba(164,194,244,0.4)' }}>
+                      <span style={{ color: 'rgba(164,194,244,0.45)', display: 'flex', alignItems: 'center' }}>
                         <ChevronDown open={isOpen} />
                       </span>
                     </button>
