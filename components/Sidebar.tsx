@@ -70,8 +70,8 @@ interface NavSection {
 
 const GESTORA:    Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais']
 const OPERACIONAL: Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais', 'operador_emissao_caf']
-const TECNICO:    Perfil[] = ['tecnico_campo']
-const CAF_TODOS:  Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais', 'operador_emissao_caf', 'tecnico_campo']
+const TECNICO:    Perfil[] = ['tecnico_campo', 'agente_campo']
+const CAF_TODOS:  Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais', 'operador_emissao_caf', 'tecnico_campo', 'agente_campo']
 const ADMIN_ONLY: Perfil[] = ['admin_saacs']
 
 const NAV_SECTIONS: NavSection[] = [

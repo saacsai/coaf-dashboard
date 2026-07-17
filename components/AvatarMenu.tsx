@@ -62,6 +62,7 @@ function IconChevron({ up }: { up: boolean }) {
 }
 
 const GESTORA_ROLES: Perfil[] = ['admin_saacs', 'gestora_coaf', 'coordenador_cooperamais']
+// agente_campo e tecnico_campo não aparecem na seção SISTEMA do AvatarMenu
 
 export default function AvatarMenu({ nomeExibido, email, initials, perfil, onEditarPerfil, onGerenciarPlano, onUsoCredits, onSair, dark = false }: Props) {
   const [open, setOpen] = useState(false)

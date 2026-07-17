@@ -13,7 +13,7 @@ export function getSupabaseAdmin() {
   })
 }
 
-export type Perfil = 'admin_saacs' | 'gestora_coaf' | 'tecnico_campo' | 'agricultor_familiar' | 'coordenador_cooperamais' | 'operador_emissao_caf'
+export type Perfil = 'admin_saacs' | 'gestora_coaf' | 'tecnico_campo' | 'agente_campo' | 'agricultor_familiar' | 'coordenador_cooperamais' | 'operador_emissao_caf'
 export type TipoGR = 'estado' | 'municipal'
 export type UnidadePadrao = 'UNIDADE' | 'CAIXA' | 'PACOTE'
 
